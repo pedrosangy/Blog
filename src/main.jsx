@@ -9,7 +9,14 @@ import { AuthProvider } from "./contexts/AuthContext";
 const theme = createTheme({
   palette: {
     mode: "light",
-    primary: { main: "#1976d2" },
+    primary: { main: "#1F2544" }, // tom escuro
+    secondary: { main: "#474F7A" }, // tom médio
+    info: { main: "#81689D" }, // tom intermediário
+    warning: { main: "#FFD0EC" }, // rosa de destaque
+    background: {
+      default: "#F5F5F5", // fundo geral neutro
+      paper: "#FFFFFF",
+    },
   },
 });
 

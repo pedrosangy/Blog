@@ -7,7 +7,7 @@ import PrivateRoute from "./components/PrivateRoute";
 
 function App() {   
   return (
-    <Routes>
+    <Routes >
       <Route path="/" element={<Navigate to="/feed" />} />
       <Route path="/login" element={<LoginPage />} />
       <Route
