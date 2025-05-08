@@ -5,11 +5,16 @@ import LoginPage from "./components/LoginPage";
 import FeedPage from "./components/FeedPage";
 import PrivateRoute from "./components/PrivateRoute";
 
-function App() {   
+function App() {
   return (
-    <Routes >
-      <Route path="/" element={<Navigate to="/feed" />} />
+    <Routes>
+      {/* ao acessar “/” já manda pro feed (se estiver logado) */}
+      <Route path="/" element={<Navigate to="/feed" replace />} />
+
+      {/* tela de login */}
       <Route path="/login" element={<LoginPage />} />
+
+      {/* feed protegido */}
       <Route
         path="/feed"
         element={
@@ -18,8 +23,9 @@ function App() {
           </PrivateRoute>
         }
       />
-      {/* rota curinga */}
-      <Route path="*" element={<Navigate to="/login" />} />
+
+      {/* qualquer outra URL reenviar para login */}
+      <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   );
 }
