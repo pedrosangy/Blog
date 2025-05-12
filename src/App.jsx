@@ -4,6 +4,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import LoginPage from "./components/LoginPage";
 import FeedPage from "./components/FeedPage";
 import PrivateRoute from "./components/PrivateRoute";
+import NewArticlePage from './components/NewArticlePage';
 
 function App() {
   return (
@@ -13,6 +14,15 @@ function App() {
 
       {/* tela de login */}
       <Route path="/login" element={<LoginPage />} />
+      {/* tela de novo artigo */}
+      <Route
+        path="/new-article"
+        element={
+          <PrivateRoute>
+            <NewArticlePage />
+          </PrivateRoute>
+        }
+      />
 
       {/* feed protegido */}
       <Route

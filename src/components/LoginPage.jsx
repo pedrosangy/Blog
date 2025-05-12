@@ -36,28 +36,7 @@ export default function LoginPage() {
     }
   };
 
-  const textFieldSX = {
-    backgroundColor: "#81689D",
-    borderRadius: 1,
-    mb: 2,
-    "& .MuiInputLabel-root": {
-      color: "#ccc", // cor padrão do label
-    },
-    "& .MuiInputLabel-root.Mui-focused": {
-      color: "#fff", // cor do label em focus
-    },
-    "& .MuiOutlinedInput-root": {
-      "& fieldset": {
-        borderColor: "transparent",
-      },
-      "&:hover fieldset": {
-        borderColor: "#fff",
-      },
-      "&.Mui-focused fieldset": {
-        borderColor: "#fff",
-      },
-    },
-  };
+  const fieldBg = "#81689D"; // mesma cor dos botões
 
   return (
     <Box
@@ -124,7 +103,6 @@ export default function LoginPage() {
             Login
           </Typography>
 
-          {/* Linha divisória */}
           <Divider
             sx={{ width: "80%", mb: 3, bgcolor: "rgba(255,255,255,0.5)" }}
           />
@@ -136,6 +114,7 @@ export default function LoginPage() {
           )}
 
           <Box component="form" onSubmit={handleSubmit} sx={{ width: "100%" }}>
+            {/* TextField Email */}
             <TextField
               variant="outlined"
               margin="normal"
@@ -144,11 +123,33 @@ export default function LoginPage() {
               label="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              sx={textFieldSX}
-              InputProps={{
-                style: { color: "#fff" },
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  backgroundColor: fieldBg,
+                  borderRadius: 2,
+                  "& fieldset": {
+                    borderColor: fieldBg,
+                  },
+                  "&:hover fieldset": {
+                    borderColor: fieldBg,
+                  },
+                  "&.Mui-focused fieldset": {
+                    borderColor: fieldBg,
+                  },
+                },
+                "& .MuiInputLabel-root": {
+                  color: "#fff",
+                },
+                "& .MuiInputLabel-root.Mui-focused": {
+                  color: "#fff",
+                },
+                input: {
+                  color: "#fff",
+                },
               }}
             />
+
+            {/* TextField Senha */}
             <TextField
               variant="outlined"
               margin="normal"
@@ -158,21 +159,43 @@ export default function LoginPage() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              sx={{ ...textFieldSX, mb: 3 }}
-              InputProps={{
-                style: { color: "#fff" },
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  backgroundColor: fieldBg,
+                  borderRadius: 2,
+                  "& fieldset": {
+                    borderColor: fieldBg,
+                  },
+                  "&:hover fieldset": {
+                    borderColor: fieldBg,
+                  },
+                  "&.Mui-focused fieldset": {
+                    borderColor: fieldBg,
+                  },
+                },
+                "& .MuiInputLabel-root": {
+                  color: "#fff",
+                },
+                "& .MuiInputLabel-root.Mui-focused": {
+                  color: "#fff",
+                },
+                input: {
+                  color: "#fff",
+                },
               }}
             />
+
             <Button
               type="submit"
               fullWidth
               variant="contained"
               disabled={loading}
               sx={{
-                mt: 1,
-                backgroundColor: "#81689D",
+                mt: 3,
+                backgroundColor: fieldBg,
                 color: "#fff",
                 "&:hover": { backgroundColor: "#6f5490" },
+                textTransform: "none",
               }}
             >
               {loading ? "Entrando…" : "Entrar"}
