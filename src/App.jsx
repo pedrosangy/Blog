@@ -1,42 +1,21 @@
 // src/App.jsx
 import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ArticlesProvider } from "./components/Article/ArticlesContext";
 import LoginPage from "./components/LoginPage";
+import NewArticlePage from "./components/Article/NewArticlePage";
 import FeedPage from "./components/FeedPage";
-import PrivateRoute from "./components/PrivateRoute";
-import NewArticlePage from './components/NewArticlePage';
 
 function App() {
   return (
-    <Routes>
-      {/* ao acessar “/” já manda pro feed (se estiver logado) */}
-      <Route path="/" element={<Navigate to="/feed" replace />} />
-
-      {/* tela de login */}
-      <Route path="/login" element={<LoginPage />} />
-      {/* tela de novo artigo */}
-      <Route
-        path="/new-article"
-        element={
-          <PrivateRoute>
-            <NewArticlePage />
-          </PrivateRoute>
-        }
-      />
-
-      {/* feed protegido */}
-      <Route
-        path="/feed"
-        element={
-          <PrivateRoute>
-            <FeedPage />
-          </PrivateRoute>
-        }
-      />
-
-      {/* qualquer outra URL reenviar para login */}
-      <Route path="*" element={<Navigate to="/login" replace />} />
-    </Routes>
+    <ArticlesProvider>
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/new-article" element={<NewArticlePage />} />
+        <Route path="/feed" element={<FeedPage />} />
+        {/* … outras rotas */}
+      </Routes>
+    </ArticlesProvider>
   );
 }
 
