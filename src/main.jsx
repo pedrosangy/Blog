@@ -28,6 +28,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <App />
         </ThemeProvider>
       </AuthProvider>
-    </BrowserRouter>
+    </BrowserRouter> 
   </React.StrictMode>
 );

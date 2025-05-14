@@ -1,14 +1,14 @@
-// src/pages/NewArticlePage.jsx
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { TextField, Button, Typography, Box, Card } from "@mui/material";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import { useNavigate } from "react-router-dom";
-import { ArticlesContext } from "../Article/ArticlesContext";
-import { nanoid } from "nanoid";
+import { db } from "../../firebaseConfig";
+import { useAuth } from "../../contexts/AuthContext";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 export default function NewArticlePage() {
   const navigate = useNavigate();
-  const { addArticle } = useContext(ArticlesContext);
+  const { currentUser } = useAuth();
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -23,17 +23,29 @@ export default function NewArticlePage() {
     setPreview(URL.createObjectURL(file));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    addArticle({
-      id: nanoid(),
-      title,
-      content,
-      theme,
-      author,
-      image: preview,
-    });
-    navigate("/feed");
+
+    if (!currentUser) {
+      alert("Você precisa estar logado.");
+      return;
+    }
+
+    try {
+      await addDoc(collection(db, "articles"), {
+        uid: currentUser.uid,
+        title,
+        content,
+        theme,
+        author,
+        coverPreview: preview,
+        createdAt: serverTimestamp(),
+      });
+
+      navigate("/feed");
+    } catch (error) {
+      console.error("Erro ao publicar artigo:", error);
+    }
   };
 
   const lineBg = `
@@ -85,7 +97,6 @@ export default function NewArticlePage() {
           onSubmit={handleSubmit}
           sx={{ display: "flex", flexDirection: "column", gap: 2 }}
         >
-          {/* Título */}
           <TextField
             label="Título do Artigo"
             variant="outlined"
@@ -95,7 +106,6 @@ export default function NewArticlePage() {
             fullWidth
           />
 
-          {/* Conteúdo */}
           <Box
             component="div"
             contentEditable
@@ -114,10 +124,9 @@ export default function NewArticlePage() {
               "&:focus": { outline: "none" },
             }}
           >
-            {content }
+            {content}
           </Box>
 
-          {/* Categorias */}
           <TextField
             label="Categorias (separe por vírgula)"
             variant="outlined"
@@ -126,7 +135,6 @@ export default function NewArticlePage() {
             fullWidth
           />
 
-          {/* Upload de Imagem Estilizado */}
           <Box sx={{ mt: 1 }}>
             <Typography variant="subtitle1" gutterBottom>
               Capa do Artigo
@@ -171,7 +179,6 @@ export default function NewArticlePage() {
             )}
           </Box>
 
-          {/* Nome do Autor */}
           <TextField
             label="Autor"
             variant="outlined"
@@ -180,7 +187,6 @@ export default function NewArticlePage() {
             fullWidth
           />
 
-          {/* Botão de salvar */}
           <Button
             type="submit"
             variant="contained"
