@@ -1,26 +1,26 @@
 # jesus.blog
 
-Um blog pessoal construído com React, Vite, Material UI e Firebase (Authentication + Firestore). Permite ao usuário criar e publicar artigos, com upload de capa, categorias e autor, e visualizar seus artigos em um feed.
+A personal blogging platform built with React, Vite, Material UI and Firebase (Authentication + Firestore). Users can log in, write and publish articles with cover images, categories and authorship, and view their own posts in a personalized feed.
 
 ---
 
-## 🚀 Tecnologias
+## 🚀 Technologies
 
-- **Vite** – bundler rápido e leve  
-- **React** – biblioteca de UI  
-- **React Router DOM** – roteamento client‑side  
-- **Material UI (@mui/material + @mui/icons-material)** – componentes e ícones  
-- **Emotion (@emotion/react + @emotion/styled)** – solução de CSS-in-JS usada pelo MUI  
+- **Vite** – Fast, modern build tool  
+- **React** – UI library  
+- **React Router DOM** – Client‑side routing  
+- **Material UI (@mui/material + @mui/icons-material)** – UI components and icons  
+- **Emotion (@emotion/react + @emotion/styled)** – CSS‑in‑JS styling for MUI  
 - **Firebase**  
-  - **Authentication** – login de usuários  
-  - **Firestore** – armazenamento de artigos  
-  - *(Futuro)* **Storage** – upload e hospedagem de imagens  
+  - **Authentication** – User login  
+  - **Firestore** – Article data storage  
+  - *(Future)* **Storage** – Image upload & hosting  
 
 ---
 
-## 📦 Instalação
+## 📦 Installation
 
-1. Clone este repositório:  
+1. Clone this repository:  
    ```bash
    git clone https://github.com/pedrosangy/Blog.git
    cd Blog
