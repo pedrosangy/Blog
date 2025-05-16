@@ -1,9 +1,10 @@
+// src/components/Article/NewArticlePage.jsx
 import React, { useState } from "react";
-import { TextField, Button, Typography, Box, Card } from "@mui/material";
+import { Box, Card, TextField, Button, Typography } from "@mui/material";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import { useNavigate } from "react-router-dom";
-import { db } from "../../firebaseConfig";
 import { useAuth } from "../../contexts/AuthContext";
+import { db } from "../../firebaseConfig";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 export default function NewArticlePage() {
@@ -25,9 +26,8 @@ export default function NewArticlePage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!currentUser) {
-      alert("Você precisa estar logado.");
+      alert("Você precisa estar logado para publicar.");
       return;
     }
 
@@ -41,10 +41,10 @@ export default function NewArticlePage() {
         coverPreview: preview,
         createdAt: serverTimestamp(),
       });
-
       navigate("/feed");
     } catch (error) {
       console.error("Erro ao publicar artigo:", error);
+      alert("Falha ao publicar. Tente novamente.");
     }
   };
 
@@ -97,6 +97,7 @@ export default function NewArticlePage() {
           onSubmit={handleSubmit}
           sx={{ display: "flex", flexDirection: "column", gap: 2 }}
         >
+          {/* Título */}
           <TextField
             label="Título do Artigo"
             variant="outlined"
@@ -106,13 +107,16 @@ export default function NewArticlePage() {
             fullWidth
           />
 
+          {/* Conteúdo */}
           <Box
             component="div"
             contentEditable
             onInput={(e) => setContent(e.currentTarget.textContent)}
             suppressContentEditableWarning
+            data-placeholder="Escreva aqui o conteúdo do artigo..."
             sx={{
               minHeight: 200,
+              
               p: 1,
               background: lineBg,
               backgroundColor: "#fff",
@@ -122,11 +126,17 @@ export default function NewArticlePage() {
               lineHeight: "24px",
               overflowY: "auto",
               "&:focus": { outline: "none" },
+              /* placeholder via CSS */
+              "&[data-placeholder]:empty:before": {
+                content: "attr(data-placeholder)",
+                color: "rgba(0,0,0,0.4)",
+                pointerEvents: "none",
+                display: "block",
+              },
             }}
-          >
-            {content}
-          </Box>
+          />
 
+          {/* Categorias */}
           <TextField
             label="Categorias (separe por vírgula)"
             variant="outlined"
@@ -135,6 +145,7 @@ export default function NewArticlePage() {
             fullWidth
           />
 
+          {/* Upload de Imagem (preview apenas) */}
           <Box sx={{ mt: 1 }}>
             <Typography variant="subtitle1" gutterBottom>
               Capa do Artigo
@@ -161,7 +172,6 @@ export default function NewArticlePage() {
                 onChange={handleFileChange}
               />
             </Button>
-
             {preview && (
               <Box
                 component="img"
@@ -179,6 +189,7 @@ export default function NewArticlePage() {
             )}
           </Box>
 
+          {/* Autor */}
           <TextField
             label="Autor"
             variant="outlined"
@@ -187,6 +198,7 @@ export default function NewArticlePage() {
             fullWidth
           />
 
+          {/* Botão Publicar */}
           <Button
             type="submit"
             variant="contained"
