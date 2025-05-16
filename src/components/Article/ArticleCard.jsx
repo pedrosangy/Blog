@@ -1,25 +1,33 @@
+// src/components/ArticleCard.jsx
 import React from "react";
 import {
+  Box,
   Card,
+  CardActionArea,
   CardMedia,
   CardContent,
   Typography,
   Chip,
-  Box,
-  Paper,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 
-export default function ArticleCard({ image, theme, title, author }) {
+export default function ArticleCard({ id, image, theme, title, author }) {
   return (
     <Box sx={{ width: 346, m: 1 }}>
       <Card sx={{ borderRadius: 2, overflow: "hidden" }}>
-        <CardMedia
-          component="img"
-          height="230"
-          image={image}
-          alt={title}
-          sx={{ objectFit: "cover" }}
-        />
+        <CardActionArea
+          component={Link}
+          to={`/article-content/${id}`}
+          sx={{ display: "block" }}
+        >
+          <CardMedia
+            component="img"
+            height="230"
+            image={image}
+            alt={title}
+            sx={{ objectFit: "cover" }}
+          />
+        </CardActionArea>
       </Card>
 
       {theme && (
@@ -30,6 +38,7 @@ export default function ArticleCard({ image, theme, title, author }) {
           sx={{ mb: 1, mt: 1 }}
         />
       )}
+
       <Typography variant="h6" gutterBottom>
         {title}
       </Typography>
